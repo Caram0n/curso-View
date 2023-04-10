@@ -10,10 +10,6 @@ describe('Counter Component', () => {
     beforeEach(() => {
         wrapper = shallowMount(Counter);
     })
-
-    afterEach(() => {
-        wrapper.destroy();
-    })
     
 
     // test('debe de hacer match con el snapshot', () => {
@@ -65,8 +61,33 @@ describe('Counter Component', () => {
         const value2 = wrapper.find('[data-testid="counter"]').text();
 
         expect(value2).toBe('101');
-    }
-    )
+    })
+
+
+    test('debe de establecer el valor por defecto', () =>{
+
+            const {start} = wrapper.props();
+
+            const value = wrapper.find('[data-testid="counter"]').text();
+
+            expect(Number(value)).toBe(start);
+    })
+
+    test('debe de mostrar la prop title', () => {
+
+        const title = 'Hola Mundo';
+
+        const wrapper = shallowMount(Counter, {
+            props: {
+                title
+            }
+        });
+
+        const h2Value = wrapper.find('h2').text();
+
+        expect(h2Value).toBe(title);
+
+    })
 
 
 })
