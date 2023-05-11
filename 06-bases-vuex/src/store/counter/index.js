@@ -1,4 +1,7 @@
-import getRandomInt from '@/helpers/getRandomInt'
+import state from "./state"
+import * as mutations from "./mutations"
+import * as actions from "./actions"
+import * as getters from "./getters"
 //Las actions llaman a las mutaciones que son las que modifican el estado
 //Las mutaciones son sincronas
 //Las acciones son asincronas
@@ -10,44 +13,10 @@ import getRandomInt from '@/helpers/getRandomInt'
 const counterStore = {
     //namespaced: true, //Para que no se mezclen los nombres de las mutaciones y acciones
     namespaced: true,
-    state: () => ( {
-        count: 1,
-        lastMutation: 'none',
-        isLoading: false,
-    }),
-    mutations: {
-        increment(state) {
-            state.count++
-            state.lastMutation = 'increment'
-        },
-        incrementBy(state, val) {
-            state.count += val
-            state.lastMutation = 'incrementBy' + val
-            state.lastRandomInt = val
-        },
-        setLoading(state, val) {
-            state.isLoading = val
-            state.lastMutation = 'setLoading' + val
-
-        }
-    },
-    actions: {
-        async incrementRandomInt({ commit }) {
-            commit('setLoading', true)
-
-            const randomInt = await getRandomInt()
-            commit('incrementBy', randomInt)
-
-            commit('setLoading', false)
-
-
-        }
-    },
-    getters: {
-        squareCount(state) {
-            return state.count * state.count
-        }
-    }
+    state,
+    mutations,
+    actions,
+    getters
 }
 
 export default counterStore

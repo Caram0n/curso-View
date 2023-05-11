@@ -8,4 +8,4 @@ const getRandomInt = () => {
 });
 }
 
-export default getRandomInt;
+export default getRandomInt

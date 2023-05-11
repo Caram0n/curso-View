@@ -1,6 +1,6 @@
 import {createStore } from 'vuex'
 
-import getRandomInt from '@/helpers/getRandomInt'
+import counterStore from './counter'
 
 
 //Las actions llaman a las mutaciones que son las que modifican el estado
@@ -12,42 +12,7 @@ import getRandomInt from '@/helpers/getRandomInt'
 //Las mutaciones no pueden llamar a otras mutaciones
 
 export default createStore({
-    state: {
-        count: 1,
-        lastMutation: 'none',
-        isLoading: false,
-    },
-    mutations: {
-        increment(state ) {
-            state.count++
-            state.lastMutation = 'increment'
-        },
-        incrementBy(state, val){
-            state.count += val
-            state.lastMutation = 'incrementBy' + val
-            state.lastRandomInt = val
-        },
-        setLoading(state, val){
-            state.isLoading = val
-            state.lastMutation = 'setLoading' + val
-        
-        }
-    },
-    actions: {
-        async incrementRandomInt({commit}){
-            commit('setLoading', true)
-
-            const randomInt = await getRandomInt()
-            commit('incrementBy', randomInt)
-
-            commit('setLoading', false)
-
-
-        }
-    },
-    getters: {
-        squareCount(state){
-            return state.count * state.count
-        }
+   modules: {
+        counter: counterStore
     }
 })
